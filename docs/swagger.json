@@ -1,0 +1,220 @@
+{
+  "basePath": "/v1",
+  "definitions": {
+    "PostApiResponse": {
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "PostApiErrorResponse": {
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Something went wrong"
+        }
+      },
+      "type": "object"
+    },
+    "GetApiObjectDataResponse": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GetApiListDataResponse": {
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GetApiErrorResponse": {
+      "properties": {
+        "data": {
+          "type": "string",
+          "example": null
+        },
+        "message": {
+          "type": "string",
+          "example": "Something went wrong"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "localhost:3000",
+  "info": {
+    "contact": {},
+    "description": "The Assignment Service is responsible for the Creation, Retrieval and Searching of an Assignment.",
+    "title": "Assignment Service",
+    "version": "1.0"
+  },
+  "paths": {
+    "/assignment": {
+      "post": {
+        "consumes": [
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "status",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "title": "test",
+                "name": "test name",
+                "description": "test description",
+                "type": "test type",
+                "duration": 20,
+                "tags": [
+                  "World",
+                  "Hello"
+                ]
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/PostApiResponse"
+              },
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/PostApiErrorResponse"
+            }
+          }
+        },
+        "summary": "Insert an Assignment",
+        "tags": [
+          "v1"
+        ]
+      }
+    },
+    "/assignment/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GetApiObjectDataResponse"
+              },
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/GetApiErrorResponse"
+            }
+          }
+        },
+        "summary": "Get an Assignment by id",
+        "tags": [
+          "v1"
+        ]
+      }
+    },
+    "/search/assignment": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Tags",
+            "in": "query",
+            "name": "tags",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Page Number",
+            "in": "query",
+            "name": "pn",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Per Page",
+            "in": "query",
+            "name": "pp",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/GetApiListDataResponse"
+              },
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/GetApiErrorResponse"
+            }
+          }
+        },
+        "summary": "Search Assignment by tags",
+        "tags": [
+          "v1"
+        ]
+      }
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "tags": [
+    {
+      "name": "v1"
+    }
+  ]
+}
