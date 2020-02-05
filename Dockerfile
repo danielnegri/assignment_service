@@ -18,6 +18,7 @@ COPY --from=builder  /etc/ssl/certs /etc/ssl/certs
 # Copy our static executable and dependencies from builder
 COPY --from=builder /go/src/github.com/surajjain36/assignment_service/assignment-service  /
 COPY --from=builder /go/src/github.com/surajjain36/assignment_service/config.yml  /
+COPY --from=builder /go/src/github.com/surajjain36/assignment_service/docs  /
 
 # Exposing port
 EXPOSE 3000
